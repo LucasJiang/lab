@@ -1,6 +1,30 @@
+import getopt
+import os
 import types
+import sys
+from exts.module import import_module_by_path, find_module
 
 COPY_SETTINGS_FUNC_IGNORED_VALUE = object()
+
+def set_setting_obj():
+    """
+    set setting obj from -c or from settings.py and settings_init.py
+    """
+    # getopt.getopt(sys.argv[1:],"hp:i:",["help","ip=","port="])
+    opts, args = getopt.getopt(sys.argv[1:], "c:d:")
+    specified_path = None
+    for opt, value in opts:
+        # conf file replace
+        if opt == "-c" and os.path.exists(value):
+            specified_path = value
+    current_path = sys.path[0]
+    settings_path = os.path.join(current_path, "settings") if not specified_path else specified_path
+    src_module_obj = import_module_by_path(settings_path)
+
+    # must use find module ,then ,after copy settings ,refresh in cache
+    dest_module_obj = find_module("app.settings_init")
+    copy_settings(src_module_obj, dest_module_obj)
+
 
 def copy_settings(src_module, dst_module,
     args_obj=None,
