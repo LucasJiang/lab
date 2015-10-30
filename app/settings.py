@@ -1,0 +1,7 @@
+SITE_HOST = '127.0.0.1'
+SITE_PORT = 8080
+SITE_HOST_HTTPS = None
+SITE_PORT_HTTPS = 443
+
+
+SQL_ENGINE = 'sqlite:///backend.db'
