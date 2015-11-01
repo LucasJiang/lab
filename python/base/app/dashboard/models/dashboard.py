@@ -1,5 +1,5 @@
 from sqlalchemy import Column, Integer, String
-from app.database.declarative_base import DeclarativeBase
+from app.database.session_maker import DeclarativeBase
 
 __author__ = 'jiang'
 

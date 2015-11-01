@@ -5,7 +5,7 @@ SITE_PORT_HTTPS = 443
 
 
 
-SQL_ENGINE = 'sqlite:///backend2.db'
+SQL_ENGINE = 'sqlite:///backend.db'
 
 
 if SITE_HOST_HTTPS is None:

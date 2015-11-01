@@ -1,5 +1,4 @@
-from app.database.declarative_base import DeclarativeBase
-from app.run import ENGINE
+from app.database.session_maker import ENGINE, DeclarativeBase
 from exts.copy_setttings import set_setting_obj
 
 __author__ = 'jiang'

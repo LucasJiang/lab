@@ -11,8 +11,6 @@ __author__ = 'jiang'
 set_setting_obj()
 application = tornado.web.Application(ROUTES)
 
-# use settings_init.SQL_ENGINE instand of SQL_ENGINE ,becasue set settings obj
-ENGINE = create_engine(settings_init.SQL_ENGINE, echo=True)
 
 def main():
     """
