@@ -1,6 +1,5 @@
-from tornado.web import RequestHandler
 from app.base.request_handler_base import RequestHandlerBase
-from app.dashboard.models.dashboard import Dashboard
+from app.user.models.user import User
 
 __author__ = 'jiang'
 
@@ -11,12 +10,12 @@ class DashboardHandler(RequestHandlerBase):
     """
 
     def get(self):
-        session = self.get_session()
-        query_obj = session.query(Dashboard).first()
+        session = self.db_session
+        query_obj = session.query(User).first()
         if query_obj:
-            self.write(query_obj.name+str(query_obj.id))
+            self.write(query_obj.name + str(query_obj.id))
         else:
-            obj = Dashboard(name="jiang")
+            obj = User(name="jiang", email="test@test.com")
             session.add(obj)
             session.commit()
-            self.write(query_obj.name+"Hello, world")
+            self.write(obj.name + "Hello, world")

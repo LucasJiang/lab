@@ -1,19 +1,45 @@
+import traceback
 from tornado.web import RequestHandler
 from app.database.session_maker import get_new_session
+from app.exception.error_log import ErrorLog
 
 __author__ = 'jiang'
 
 
-class RequestHandlerBase(RequestHandler):
+class RequestHandlerBase(RequestHandler, ErrorLog):
     def data_received(self, chunk):
         pass
 
     def __init__(self, application, request, **kwargs):
-        self.db_session = None
+        self.sqlalchemy_session = None
         RequestHandler.__init__(self, application, request, **kwargs)
 
-    def get_session(self):
-        if not self.db_session:
-            self.db_session = get_new_session()
-        return self.db_session
+    @property
+    def db_session(self):
+        if not self.sqlalchemy_session:
+            self.sqlalchemy_session = get_new_session()
+        return self.sqlalchemy_session
 
+    def write_error(self, status_code, **kwargs):
+        """Override to implement custom error pages and to add logs
+        """
+        if self.settings.get("serve_traceback") and "exc_info" in kwargs:
+            # in debug mode, try to send a traceback
+
+            self.set_header('Content-Type', 'text/plain')
+            for line in traceback.format_exception(*kwargs["exc_info"]):
+                self.write(line)
+            self.finish()
+
+        else:
+            self.add_error_log_to_db(
+                self.db_session,
+                exc_info=kwargs["exc_info"],
+                code=status_code,
+                info=self._reason,
+            )
+            self.finish("<html><title>%(code)d: %(message)s</title>"
+                        "<body>%(code)d: %(message)s</body></html>" % {
+                            "code": status_code,
+                            "message": self._reason,
+                        })

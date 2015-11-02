@@ -1,4 +1,3 @@
-from sqlalchemy import create_engine
 from app.urls import ROUTES
 import tornado.ioloop
 import tornado.web
