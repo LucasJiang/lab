@@ -2,14 +2,13 @@ from app.urls import ROUTES
 import tornado.ioloop
 import tornado.web
 from app import settings_init
-from exts.copy_setttings import copy_settings, set_setting_obj
+from exts.copy_setttings import set_setting_obj
 
 __author__ = 'jiang'
 
 
 set_setting_obj()
 application = tornado.web.Application(ROUTES)
-
 
 def main():
     """

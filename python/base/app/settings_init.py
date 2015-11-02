@@ -1,3 +1,5 @@
+import os
+
 SITE_HOST = '127.0.0.1'
 SITE_PORT = 8888
 SITE_HOST_HTTPS = None
@@ -7,6 +9,8 @@ SITE_PORT_HTTPS = 443
 
 SQL_ENGINE = 'sqlite:///backend.db'
 
+
+PROJECT_SRC_DIR = os.path.dirname(__file__)
 
 if SITE_HOST_HTTPS is None:
     SITE_HOST_HTTPS = SITE_HOST

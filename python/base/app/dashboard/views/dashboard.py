@@ -13,7 +13,7 @@ class DashboardHandler(RequestHandlerBase):
         session = self.db_session
         query_obj = session.query(User).first()
         if query_obj:
-            self.write(query_obj.name + str(query_obj.id))
+            self.render_dashboard_template('page_dashboard.html', name=query_obj.name)
         else:
             obj = User(name="jiang", email="test@test.com")
             session.add(obj)

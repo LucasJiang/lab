@@ -1,12 +1,13 @@
 import traceback
 from tornado.web import RequestHandler
+from app.base.jinja_manager import JinjaManager
 from app.database.session_maker import get_new_session
 from app.exception.error_log import ErrorLog
 
 __author__ = 'jiang'
 
 
-class RequestHandlerBase(RequestHandler, ErrorLog):
+class RequestHandlerBase(JinjaManager, RequestHandler, ErrorLog):
     def data_received(self, chunk):
         pass
 
