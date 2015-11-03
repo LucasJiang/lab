@@ -1,6 +1,6 @@
 import traceback
 from tornado.web import RequestHandler
-from app.base.jinja_manager import JinjaManager
+from app.base.jinja_manager import JinjaManager, TEMPLATE_PLATFORM_SEP
 from app.database.session_maker import get_new_session
 from app.exception.error_log import ErrorLog
 
@@ -21,6 +21,16 @@ class RequestHandlerBase(JinjaManager, RequestHandler, ErrorLog):
             self.sqlalchemy_session = get_new_session()
         return self.sqlalchemy_session
 
+    def render_template(self, template_dir_name, template_name, **kwargs):
+        return self.render('{}{}/{}'.format(
+            self.template_platform + TEMPLATE_PLATFORM_SEP,
+            template_dir_name,
+            template_name
+        ),
+            # Add public k-v here to give template var.
+            **kwargs
+        )
+
     def write_error(self, status_code, **kwargs):
         """Override to implement custom error pages and to add logs
         """
@@ -39,6 +49,8 @@ class RequestHandlerBase(JinjaManager, RequestHandler, ErrorLog):
                 code=status_code,
                 info=self._reason,
             )
+
+            # use any wanted page instead of these code
             self.finish("<html><title>%(code)d: %(message)s</title>"
                         "<body>%(code)d: %(message)s</body></html>" % {
                             "code": status_code,

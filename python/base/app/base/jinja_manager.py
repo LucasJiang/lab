@@ -52,15 +52,6 @@ class JinjaManager(object):
         return template.render(
             **kwargs)
 
-    def render_template(self, template_dir_name, template_name, **kwargs):
-        return self.render('{}{}/{}'.format(
-            self.template_platform + TEMPLATE_PLATFORM_SEP,
-            template_dir_name,
-            template_name
-        ),
-            **kwargs
-        )
-
     def render_dashboard_template(self, template_name, **kwargs):
         return self.render_template(
             template_dir_name=DASHBOARD_DIR_NAME,

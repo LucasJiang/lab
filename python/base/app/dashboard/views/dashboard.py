@@ -1,4 +1,4 @@
-from sqlalchemy.orm import load_only, subqueryload, defer, lazyload
+from sqlalchemy.orm import defer, lazyload
 from app.base.request_handler_base import RequestHandlerBase
 from app.user.models.address import Address
 from app.user.models.user import User
@@ -6,7 +6,7 @@ from app.user.models.user import User
 __author__ = 'jiang'
 
 
-class DashboardHandler(RequestHandlerBase):
+class PageDashboardHandler(RequestHandlerBase):
     """
     Home page
     """
@@ -16,6 +16,7 @@ class DashboardHandler(RequestHandlerBase):
         # query demo
         user_obj = session.query(User)\
             .options(defer(User.email), lazyload("address_obj_s").load_only("name")).first()
+
         if user_obj:
             self.render_dashboard_template('page_dashboard.html', name=user_obj.name,
                                            address_obj_s=user_obj.address_obj_s)

@@ -1,5 +1,5 @@
 from app.dashboard.urls import DASHBOARD_ROUTES
-from app.exception.not_find_handler import PageNotFoundHandler
+from app.exception.exception_handler import PageNotFoundHandler
 from app.settings_init import SITE_URL, SITE_URL_LEN, SITE_URL_HTTPS, SITE_URL_HTTPS_LEN
 
 __author__ = 'jiang'
