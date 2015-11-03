@@ -12,6 +12,7 @@ def create_init_data(engine):
     """import model to create table"""
 
     from app.user.models import user
+    from app.user.models import address
     from app.exception.models import error_log
 
     DeclarativeBase.metadata.create_all(engine)

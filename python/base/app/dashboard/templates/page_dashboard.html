@@ -5,6 +5,11 @@
     <title>dashboard</title>
 </head>
 <body>
+
+{%for address_obj in address_obj_s%}
+{{address_obj.name}}<br/>
+{%endfor%}
+<br/>
 hello world {{name}}
 </body>
 </html>
