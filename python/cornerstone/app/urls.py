@@ -1,5 +1,6 @@
 from app.dashboard.urls import DASHBOARD_ROUTES
 from app.exception.exception_handler import PageNotFoundHandler
+from app.login.urls import LOGIN_ROUTES
 from app.settings_init import SITE_URL, SITE_URL_LEN, SITE_URL_HTTPS, SITE_URL_HTTPS_LEN
 
 __author__ = 'jiang'
@@ -34,5 +35,6 @@ def remove_scheme_and_host_from_routes(routes, add_ending_dollar=False):
 
 
 ROUTES = DASHBOARD_ROUTES + \
-    [('.*', PageNotFoundHandler)]
+         LOGIN_ROUTES + \
+         [('.*', PageNotFoundHandler)]
 ROUTES = remove_scheme_and_host_from_routes(ROUTES, add_ending_dollar=True)

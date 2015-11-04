@@ -2,7 +2,7 @@ import getopt
 import os
 import types
 import sys
-from exts.module import import_module_by_path, find_module
+from exts.module_util import import_module_by_path, find_module
 
 COPY_SETTINGS_FUNC_IGNORED_VALUE = object()
 

@@ -2,6 +2,7 @@ import os
 from jinja2 import Environment, PrefixLoader, FileSystemLoader
 from jinja2.ext import loopcontrols, autoescape
 from app.dashboard.templates import DASHBOARD_DIR_NAME
+from app.login.templates import LOGIN_DIR_NAME
 from app.settings_init import PROJECT_SRC_DIR
 
 __author__ = 'jiang'
@@ -14,6 +15,7 @@ EXTENSION_S = [loopcontrols, autoescape]
 
 _SECTION_DIR_NAME_S = [
     DASHBOARD_DIR_NAME,
+    LOGIN_DIR_NAME,
 ]
 
 
@@ -52,9 +54,3 @@ class JinjaManager(object):
         return template.render(
             **kwargs)
 
-    def render_dashboard_template(self, template_name, **kwargs):
-        return self.render_template(
-            template_dir_name=DASHBOARD_DIR_NAME,
-            template_name=template_name,
-            **kwargs
-        )

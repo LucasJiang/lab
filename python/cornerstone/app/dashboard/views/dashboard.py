@@ -1,5 +1,6 @@
 from sqlalchemy.orm import defer, lazyload
 from app.base.request_handler_base import RequestHandlerBase
+from app.dashboard.templates import DASHBOARD_DIR_NAME
 from app.user.models.address import Address
 from app.user.models.user import User
 
@@ -14,12 +15,12 @@ class PageDashboardHandler(RequestHandlerBase):
     def get(self):
         session = self.db_session
         # query demo
-        user_obj = session.query(User)\
+        user_obj = session.query(User) \
             .options(defer(User.email), lazyload("address_obj_s").load_only("name")).first()
 
         if user_obj:
-            self.render_dashboard_template('page_dashboard.html', name=user_obj.name,
-                                           address_obj_s=user_obj.address_obj_s)
+            self.render_template(DASHBOARD_DIR_NAME, 'page_dashboard.html', name=user_obj.name,
+                                 address_obj_s=user_obj.address_obj_s)
         else:
             obj = User(name="jiang", email="test@test.com")
             session.add(obj)

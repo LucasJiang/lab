@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<form action="/login" method="post">
+<ul>
+    <li><span class="title">Login</span></li>
+    <li>
+        <div class="opt"><input type="text" id="name" name="name" size="25"
+                                placeholder-label="enter name" maxlength="100"/>
+
+            <div id="errName" style="display: none;">name error</div>
+        </div>
+    </li>
+    <li>
+        <div class="opt"><input type="password" id="pwd" name="pwd"
+                                placeholder-label="enter password" autocomplete="off" size="25" maxlength="32"/>
+
+            <div id="errPwd" style="display: none;"></div>
+        </div>
+    </li>
+</ul>
+<input type="submit" id="loginButton" name="submit" value="login"/>
+</body>
+</html>
