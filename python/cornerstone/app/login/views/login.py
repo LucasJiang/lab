@@ -1,3 +1,4 @@
+import hashlib
 from sqlalchemy.orm import load_only
 from app.base.request_handler_base import RequestHandlerBase
 from app.base.url_param import PA_REDIRECTED_FROM
@@ -21,6 +22,8 @@ class LoginHandler(RequestHandlerBase):
         email = self.get_argument(PA_USERNAME)
         password = self.get_argument(PA_PASSWORD)
         from_url = self.get_argument(PA_REDIRECTED_FROM, '')
+
+        password = hashlib.md5(password).hexdigest().upper()
 
         session = self.db_session
 
