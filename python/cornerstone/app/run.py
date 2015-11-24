@@ -18,7 +18,7 @@ def main():
     from exts.copy_setttings import set_setting_obj
     set_setting_obj()
     from app import settings_init
-    print("Link:{}".format(settings_init.SITE_SERVER))
+    print("Link:{}:{}".format(settings_init.SITE_HOST,settings_init.SITE_PORT))
     # start app
     application.listen(settings_init.SITE_PORT)
     tornado.ioloop.IOLoop.instance().start()
