@@ -17,10 +17,15 @@ class PageDashboardHandler(RequestHandlerBase):
         # query demo
         user_obj = session.query(User) \
             .options(defer(User.email), lazyload("address_obj_s").load_only("name")).first()
+        user_name = self.login_user.email if self.login_user else user_obj.name
 
         if user_obj:
-            self.render_template(DASHBOARD_DIR_NAME, 'page_dashboard.html', name=user_obj.name,
-                                 address_obj_s=user_obj.address_obj_s)
+            if self.login_user:
+                self.render_template(DASHBOARD_DIR_NAME, 'page_user_dashboard.html', name=user_name,
+                                     address_obj_s=user_obj.address_obj_s)
+            else:
+                self.render_template(DASHBOARD_DIR_NAME, 'page_dashboard.html', name=user_name,
+                                     address_obj_s=user_obj.address_obj_s)
         else:
             obj = User(name="jiang", email="test@test.com")
             session.add(obj)
@@ -30,4 +35,5 @@ class PageDashboardHandler(RequestHandlerBase):
             session.add(address_1)
             session.add(address_2)
             session.commit()
-            self.write(obj.name + "Hello, world")
+            self.render_template(DASHBOARD_DIR_NAME, 'page_dashboard.html', name=user_name,
+                                 address_obj_s=obj.address_obj_s)

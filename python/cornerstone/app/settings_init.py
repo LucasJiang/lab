@@ -5,10 +5,21 @@ SITE_PORT = 8888
 SITE_HOST_HTTPS = None
 SITE_PORT_HTTPS = 443
 
+U_AES_KEY = 'b' * 32
+AES_KEY = U_AES_KEY.encode(encoding="utf-8")
+ENCRYPT_ZFILL = 7
+U_AES_IV = 'a' * 16
+U_HMAC_KEY1 = 'c' * 48
+U_HMAC_KEY2 = 'd' * 48
+AES_IV = U_AES_IV.encode(encoding="utf-8")
+HMAC_KEY1 = U_HMAC_KEY1.encode(encoding="utf-8")
+HMAC_KEY2 = U_HMAC_KEY2.encode(encoding="utf-8")
 
+LOGIN_COOKIE_DOMAIN = None
+LOGIN_COOKIE_EXPIRE_DAYS = 90
+LOGIN_COOKIE_NAME = '.JiangCookie$.jiang.com'
 
 SQL_ENGINE = 'sqlite:///backend.db'
-
 
 PROJECT_SRC_DIR = os.path.dirname(__file__)
 

@@ -10,7 +10,7 @@ from app.user.models.user import User
 __author__ = 'jiang'
 
 
-class LoginHandler(RequestHandlerBase):
+class PageLoginHandler(RequestHandlerBase):
     """
     Login page
     """
@@ -23,7 +23,7 @@ class LoginHandler(RequestHandlerBase):
         password = self.get_argument(PA_PASSWORD)
         from_url = self.get_argument(PA_REDIRECTED_FROM, '')
 
-        password = hashlib.md5(password).hexdigest().upper()
+        password = hashlib.md5(password.encode(encoding="utf-8")).hexdigest().upper()
 
         session = self.db_session
 
@@ -33,9 +33,23 @@ class LoginHandler(RequestHandlerBase):
             self.redirect(LOGIN_URL)
             return
 
+        self.set_login_cookie(user_obj.id)
+
         if from_url:
             to_url = from_url
         else:
             to_url = DASHBOARD_URL
 
         self.redirect(to_url)
+
+
+class API_LogoutHandler(RequestHandlerBase):
+    """
+    Logout api
+    """
+
+    def get(self):
+        self.clear_login_cookie()
+        # if having session -clear
+
+        self.redirect(LOGIN_URL)
